@@ -28,4 +28,8 @@ public enum Box {
     public void setImage(Object image) {
         this.image = image;
     }
+
+    Box nextNumberBox() {
+        return Box.values()[this.ordinal() + 1];
+    }
 }

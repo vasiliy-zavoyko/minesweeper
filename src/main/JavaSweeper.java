@@ -3,14 +3,11 @@ import sweeper.Coordinate;
 import sweeper.Game;
 import sweeper.Ranges;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 
 public class JavaSweeper extends JFrame {
 
@@ -26,13 +23,22 @@ public class JavaSweeper extends JFrame {
     }
 
     private JPanel panel;
+    private JLabel label;
 
     private JavaSweeper() {
         game = new Game(COLS, ROWS, BOMBS);
         game.start();
         setImages();
         initPanel();
+        initLabel();
         initFrame();
+    }
+
+    private void initLabel() {
+        label = new JLabel(getMsg());
+        Font font = new Font("Tahoma", Font.BOLD, 20);
+        label.setFont(font);
+        add(label, BorderLayout.SOUTH);
     }
 
     private void initFrame() {
@@ -57,6 +63,21 @@ public class JavaSweeper extends JFrame {
                 }
             }
         };
+        panel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                int x = e.getX() / IMAGE_SIZE;
+                int y = e.getY() / IMAGE_SIZE;
+                Coordinate coordinate = new Coordinate(x,y);
+                switch (e.getButton()) {
+                    case MouseEvent.BUTTON1 : game.pressLeftButton(coordinate); break;
+                    case MouseEvent.BUTTON3 : game.pressRightButton(coordinate); break;
+                    case MouseEvent.BUTTON2 : game.start();
+                }
+                label.setText(getMsg());
+                panel.repaint();
+            }
+        });
         panel.setPreferredSize(new Dimension(Ranges.getSize().x * IMAGE_SIZE, Ranges.getSize().y * IMAGE_SIZE));
         add(panel);
     }
@@ -67,10 +88,19 @@ public class JavaSweeper extends JFrame {
     }
 
     private void setImages() {
-        for (Box box : Box.values()) {
+        for (Box box : Box.values())
             box.setImage(getImage(box.name().toLowerCase()));
-        }
+
         setIconImage(getImage("icon"));
+    }
+
+    private String getMsg() {
+        switch (game.getState()) {
+            case BOMBED: return "Ba-Da-Boo!";
+            case WINNER: return "Congratulations!";
+            case PLAYED:
+            default: return "Welcome!";
+        }
     }
 
 }

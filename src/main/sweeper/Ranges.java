@@ -1,11 +1,13 @@
 package sweeper;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Ranges {
 
     static private Coordinate size;
     static private ArrayList<Coordinate> allCoordinates;
+    static private Random random = new Random();
 
     static public Coordinate getSize() {
         return size;
@@ -25,12 +27,28 @@ public class Ranges {
         return allCoordinates;
     }
 
-    public static boolean inRange(Coordinate coordinate) {
+    static boolean inRange(Coordinate coordinate) {
         return coordinate != null
                 && coordinate.x >= 0
                 && coordinate.x < size.x
                 && coordinate.y >= 0
                 && coordinate.y < size.y;
+    }
+
+    static Coordinate getRandomCoordinate() {
+        return new Coordinate(random.nextInt(size.x), random.nextInt(size.y));
+    }
+
+    static ArrayList<Coordinate> getCoordinateAround(Coordinate coordinate) {
+        Coordinate around;
+        ArrayList<Coordinate> list = new ArrayList<>();
+        for (int x = coordinate.x - 1; x <= coordinate.x + 1; x++)
+            for (int y = coordinate.y -1; y <= coordinate.y + 1; y++)
+                if (inRange(around = new Coordinate(x,y)))
+                    if (!around.equals(coordinate))
+                        list.add(around);
+
+        return list;
     }
 
 }
