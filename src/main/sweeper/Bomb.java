@@ -25,6 +25,7 @@ class Bomb {
             Coordinate coordinate = Ranges.getRandomCoordinate();
             if (Box.BOMB == bombMap.get(coordinate))
                 continue;
+
             incNumbersAroundBomb(coordinate);
             break;
         }

@@ -15,7 +15,7 @@ public class JavaSweeper extends JFrame {
 
     private final int COLS = 9;
     private final int ROWS = 9;
-    private final int BOMBS = 10;
+    private final int BOMBS = 3;
     private final int IMAGE_SIZE = 50;
 
     public static void main(String[] args) {
@@ -99,7 +99,12 @@ public class JavaSweeper extends JFrame {
             case BOMBED: return "Ba-Da-Boo!";
             case WINNER: return "Congratulations!";
             case PLAYED:
-            default: return "Welcome!";
+            default:
+                    if (game.getTotalFlagged() == 0) {
+                        return "Welcome!";
+                    } else {
+                        return "Think twice! Flagged " + game.getTotalFlagged() + " of " + game.getTotalBombs();
+                    }
         }
     }
 

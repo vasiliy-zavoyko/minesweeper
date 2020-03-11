@@ -32,4 +32,10 @@ public enum Box {
     Box nextNumberBox() {
         return Box.values()[this.ordinal() + 1];
     }
+
+    int getNumber() {
+        int n = ordinal();
+        if (n >= Box.NUM1.ordinal() && n <= Box.NUM8.ordinal()) return ordinal();
+        return -1;
+    }
 }
