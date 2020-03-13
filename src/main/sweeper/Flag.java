@@ -2,8 +2,8 @@ package sweeper;
 
 class Flag {
     private Matrix flagMap;
-    int totalFlags;
-    int totalClosed;
+    private int totalFlags;
+    private int totalClosed;
 
     public void start() {
         flagMap = new Matrix(Box.CLOSED);

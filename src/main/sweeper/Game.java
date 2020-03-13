@@ -73,7 +73,7 @@ public class Game {
 
     private void checkWinner() {
         if (GameState.PLAYED == state)
-            if (flag.totalClosed == bomb.getTotalBombs()) {
+            if (flag.getTotalClosed() == bomb.getTotalBombs()) {
                 state = GameState.WINNER;
                 flag.setFlaggedToLastClosedBoxes();
             }
