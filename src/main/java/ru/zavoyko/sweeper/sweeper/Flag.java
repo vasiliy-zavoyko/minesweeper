@@ -1,4 +1,4 @@
-package sweeper;
+package ru.zavoyko.sweeper.sweeper;
 
 class Flag {
     private Matrix flagMap;

@@ -1,13 +1,15 @@
-import sweeper.Box;
-import sweeper.Coordinate;
-import sweeper.Game;
-import sweeper.Ranges;
+package ru.zavoyko.sweeper;
 
+import ru.zavoyko.sweeper.sweeper.Box;
+import ru.zavoyko.sweeper.sweeper.Coordinate;
+import ru.zavoyko.sweeper.sweeper.Game;
+import ru.zavoyko.sweeper.sweeper.Ranges;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.*;
 
 public class JavaSweeper extends JFrame {
 
@@ -83,7 +85,7 @@ public class JavaSweeper extends JFrame {
     }
 
     private Image getImage(String name) {
-        String filename = "img/" + name + ".png";
+        String filename = "/" + name + ".png";
         return new ImageIcon(getClass().getResource(filename)).getImage();
     }
 

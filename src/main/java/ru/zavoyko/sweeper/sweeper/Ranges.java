@@ -1,4 +1,4 @@
-package sweeper;
+package ru.zavoyko.sweeper.sweeper;
 
 import java.util.ArrayList;
 import java.util.Random;
