@@ -11,12 +11,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <maven.shade.plugin.version>3.2.1</maven.shade.plugin.version>
         <maven.compiler.plugin.version>3.6.1</maven.compiler.plugin.version>
         <maven.jar.plugin.version>3.2.2</maven.jar.plugin.version>
-        <maven-resources-plugin>3.3.0</maven-resources-plugin>
-        <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
-        <maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
+        <maven.jar.plugin.main.class>ru.zavoyko.sweeper.JavaSweeper</maven.jar.plugin.main.class>
+        <maven.resources.plugin>3.3.0</maven.resources.plugin>
+        <maven.antrun.plugin.version>1.8</maven.antrun.plugin.version>
         <surefire.version>3.0.0-M5</surefire.version>
         <failsafe.version>3.0.0-M5</failsafe.version>
         <lombok.version>1.18.22</lombok.version>
@@ -69,14 +68,14 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>ru.zavoyko.sweeper.JavaSweeper</mainClass>
+                            <mainClass>${maven.jar.plugin.main.class}</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>${maven-resources-plugin}</version>
+                <version>${maven.resources.plugin}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
