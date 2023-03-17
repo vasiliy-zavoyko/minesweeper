@@ -6,7 +6,7 @@ class Matrix {
 
     Matrix(Box box) {
         matrix = new Box[Ranges.getSize().getX()][Ranges.getSize().getY()];
-        for (Coordinate coordinate : Ranges.getAllCoordinates())
+        for (final var coordinate : Ranges.getAllCoordinates())
             matrix[coordinate.getX()][coordinate.getY()] = box;
     }
 
