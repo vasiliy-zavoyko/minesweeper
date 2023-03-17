@@ -1,6 +1,6 @@
 package ru.zavoyko.sweeper.sweeper;
 
-public enum GameState {
+enum GameState {
     PLAYED,
     BOMBED,
     WINNER

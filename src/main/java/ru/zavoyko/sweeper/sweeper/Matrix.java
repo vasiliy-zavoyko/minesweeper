@@ -1,25 +1,25 @@
 package ru.zavoyko.sweeper.sweeper;
 
-public class Matrix {
+class Matrix {
 
-    private Box [][] matrix;
+    private Box[][] matrix;
 
-    Matrix (Box box) {
-        matrix = new Box[Ranges.getSize().x][Ranges.getSize().y];
+    Matrix(Box box) {
+        matrix = new Box[Ranges.getSize().getX()][Ranges.getSize().getY()];
         for (Coordinate coordinate : Ranges.getAllCoordinates())
-            matrix[coordinate.x][coordinate.y] = box;
+            matrix[coordinate.getX()][coordinate.getY()] = box;
     }
 
     Box get(Coordinate coordinate) {
         if (Ranges.inRange(coordinate))
-            return matrix[coordinate.x][coordinate.y];
+            return matrix[coordinate.getX()][coordinate.getY()];
 
         return null;
     }
 
     void set (Coordinate coordinate, Box box) {
         if (Ranges.inRange(coordinate))
-            matrix[coordinate.x][coordinate.y] = box;
+            matrix[coordinate.getX()][coordinate.getY()] = box;
     }
 
 }

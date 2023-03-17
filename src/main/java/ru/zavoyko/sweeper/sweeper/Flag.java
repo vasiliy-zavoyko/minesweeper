@@ -1,11 +1,12 @@
 package ru.zavoyko.sweeper.sweeper;
 
 class Flag {
+
     private Matrix flagMap;
     private int totalFlags;
     private int totalClosed;
 
-    public void start() {
+    void start() {
         flagMap = new Matrix(Box.CLOSED);
         totalClosed = Ranges.getSquare();
         totalFlags = 0;
@@ -21,9 +22,10 @@ class Flag {
     }
 
     void toggleFlagedToBox(Coordinate coordinate) {
-        switch (flagMap.get(coordinate)) {
-            case FLAGGED: setClosedToBox(coordinate); break;
-            case CLOSED: setFlagedToBox(coordinate); break;
+        if (flagMap.get(coordinate) == Box.CLOSED) {
+            setFlagedToBox(coordinate);
+        } else {
+            setClosedToBox(coordinate);
         }
     }
 
@@ -37,18 +39,19 @@ class Flag {
         totalFlags++;
     }
 
-     int getTotalFlags() {
+    int getTotalFlags() {
         return totalFlags;
     }
 
-     int getTotalClosed() {
+    int getTotalClosed() {
         return totalClosed;
     }
 
     void setFlaggedToLastClosedBoxes() {
-        for (Coordinate coordinate : Ranges.getAllCoordinates()) {
-            if (Box.CLOSED == flagMap.get(coordinate))
+        for (final var coordinate : Ranges.getAllCoordinates()) {
+            if (Box.CLOSED == flagMap.get(coordinate)) {
                 setFlagedToBox(coordinate);
+            }
         }
     }
 
@@ -57,18 +60,24 @@ class Flag {
     }
 
     void setOpendToBoxClosedBox(Coordinate coordinate) {
-        if (Box.CLOSED == flagMap.get(coordinate)) flagMap.set(coordinate, Box.OPENED);
+        if (Box.CLOSED == flagMap.get(coordinate)) {
+            flagMap.set(coordinate, Box.OPENED);
+        }
     }
 
     void setNoBombToFlaggedBox(Coordinate coordinate) {
-        if (Box.FLAGGED == flagMap.get(coordinate)) flagMap.set(coordinate, Box.NOBOMB);
+        if (Box.FLAGGED == flagMap.get(coordinate)) {
+            flagMap.set(coordinate, Box.NOBOMB);
+        }
     }
 
     int getCountOfFlaggedBoxesAround(Coordinate coordinate) {
         int count = 0;
-        for (Coordinate around : Ranges.getCoordinateAround(coordinate))
-            if (Box.FLAGGED == flagMap.get(around)) count++;
-
+        for (final var around : Ranges.getCoordinateAround(coordinate)) {
+            if (Box.FLAGGED == flagMap.get(around)) {
+                count++;
+            }
+        }
         return count;
     }
 

@@ -1,6 +1,6 @@
 package ru.zavoyko.sweeper.sweeper;
 
-public enum Box {
+enum Box {
 
     ZERO,
     NUM1,
@@ -21,12 +21,12 @@ public enum Box {
 
     private Object image;
 
-    public Object getImage() {
+    Object getImage() {
         return image;
     }
 
-    public void setImage(Object image) {
-        this.image = image;
+    void setImage(Object imageToSet) {
+        this.image = imageToSet;
     }
 
     Box nextNumberBox() {
@@ -34,8 +34,11 @@ public enum Box {
     }
 
     int getNumber() {
-        int n = ordinal();
-        if (n >= Box.NUM1.ordinal() && n <= Box.NUM8.ordinal()) return ordinal();
+        final int n = ordinal();
+        if (n >= Box.NUM1.ordinal() && n <= Box.NUM8.ordinal()) {
+            return ordinal();
+        }
         return -1;
     }
+
 }

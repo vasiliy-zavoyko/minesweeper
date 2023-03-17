@@ -1,58 +1,63 @@
 package ru.zavoyko.sweeper.sweeper;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-public class Ranges {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+class Ranges {
 
-    static private Coordinate size;
-    static private ArrayList<Coordinate> allCoordinates;
-    static private Random random = new Random();
+    private static Coordinate size;
+    private static ArrayList<Coordinate> allCoordinates;
+    private static final Random random = new Random();
 
-    static public Coordinate getSize() {
+    static Coordinate getSize() {
         return size;
     }
 
     static void setSize(Coordinate size) {
         Ranges.size = size;
         allCoordinates = new ArrayList<>();
-        for(int x = 0; x < size.x; x++) {
-            for (int y =0; y < size.y; y++) {
+        for (int x = 0; x < size.getX(); x++) {
+            for (int y = 0; y < size.getY(); y++) {
                 allCoordinates.add(new Coordinate(x, y));
             }
         }
     }
 
-    static public ArrayList<Coordinate> getAllCoordinates() {
+    static List<Coordinate> getAllCoordinates() {
         return allCoordinates;
     }
 
     static boolean inRange(Coordinate coordinate) {
         return coordinate != null
-                && coordinate.x >= 0
-                && coordinate.x < size.x
-                && coordinate.y >= 0
-                && coordinate.y < size.y;
+                && coordinate.getX() >= 0
+                && coordinate.getX() < size.getX()
+                && coordinate.getY() >= 0
+                && coordinate.getY() < size.getY();
     }
 
     static Coordinate getRandomCoordinate() {
-        return new Coordinate(random.nextInt(size.x), random.nextInt(size.y));
+        return new Coordinate(random.nextInt(size.getX()), random.nextInt(size.getY()));
     }
 
-    static ArrayList<Coordinate> getCoordinateAround(Coordinate coordinate) {
-        Coordinate around;
-        ArrayList<Coordinate> list = new ArrayList<>();
-        for (int x = coordinate.x - 1; x <= coordinate.x + 1; x++)
-            for (int y = coordinate.y -1; y <= coordinate.y + 1; y++)
-                if (inRange(around = new Coordinate(x,y)))
-                    if (!around.equals(coordinate))
-                        list.add(around);
-
+    static List<Coordinate> getCoordinateAround(Coordinate coordinate) {
+        final var list = new ArrayList<Coordinate>();
+        for (int x = coordinate.getX() - 1; x <= coordinate.getX() + 1; x++)
+            for (int y = coordinate.getY() - 1; y <= coordinate.getY() + 1; y++) {
+                final var around = new Coordinate(x, y);
+                if (inRange(around) && (!around.equals(coordinate))) {
+                    list.add(around);
+                }
+            }
         return list;
     }
 
-    static int getSquare(){
-        return size.x * size.y;
+    static int getSquare() {
+        return size.getX() * size.getY();
     }
 
 }
