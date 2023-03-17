@@ -11,7 +11,7 @@ import java.util.Random;
 class Ranges {
 
     private static Coordinate size;
-    private static ArrayList<Coordinate> allCoordinates;
+    private static List<Coordinate> allCoordinates;
     private static final Random random = new Random();
 
     static Coordinate getSize() {
@@ -21,8 +21,8 @@ class Ranges {
     static void setSize(Coordinate size) {
         Ranges.size = size;
         allCoordinates = new ArrayList<>();
-        for (int x = 0; x < size.getX(); x++) {
-            for (int y = 0; y < size.getY(); y++) {
+        for (int x = 0; x < size.x(); x++) {
+            for (int y = 0; y < size.y(); y++) {
                 allCoordinates.add(new Coordinate(x, y));
             }
         }
@@ -34,30 +34,31 @@ class Ranges {
 
     static boolean inRange(Coordinate coordinate) {
         return coordinate != null
-                && coordinate.getX() >= 0
-                && coordinate.getX() < size.getX()
-                && coordinate.getY() >= 0
-                && coordinate.getY() < size.getY();
+                && coordinate.x() >= 0
+                && coordinate.x() < size.x()
+                && coordinate.y() >= 0
+                && coordinate.y() < size.y();
     }
 
     static Coordinate getRandomCoordinate() {
-        return new Coordinate(random.nextInt(size.getX()), random.nextInt(size.getY()));
+        return new Coordinate(random.nextInt(size.x()), random.nextInt(size.y()));
     }
 
     static List<Coordinate> getCoordinateAround(Coordinate coordinate) {
         final var list = new ArrayList<Coordinate>();
-        for (int x = coordinate.getX() - 1; x <= coordinate.getX() + 1; x++)
-            for (int y = coordinate.getY() - 1; y <= coordinate.getY() + 1; y++) {
+        for (int x = coordinate.x() - 1; x <= coordinate.x() + 1; x++) {
+            for (int y = coordinate.y() - 1; y <= coordinate.y() + 1; y++) {
                 final var around = new Coordinate(x, y);
                 if (inRange(around) && (!around.equals(coordinate))) {
                     list.add(around);
                 }
             }
+        }
         return list;
     }
 
     static int getSquare() {
-        return size.getX() * size.getY();
+        return size.x() * size.y();
     }
 
 }

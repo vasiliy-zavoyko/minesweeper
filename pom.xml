@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ru.zavoyko</groupId>
     <artifactId>minesweeper</artifactId>
-    <version>0.4</version>
+    <version>1.0a</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -13,13 +13,14 @@
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.plugin.version>3.6.1</maven.compiler.plugin.version>
         <maven.jar.plugin.version>3.2.2</maven.jar.plugin.version>
-        <maven.jar.plugin.main.class>ru.zavoyko.sweeper.App</maven.jar.plugin.main.class>
+        <jar.main.class>ru.zavoyko.sweeper.App</jar.main.class>
         <maven.resources.plugin>3.3.0</maven.resources.plugin>
         <maven.antrun.plugin.version>1.8</maven.antrun.plugin.version>
         <surefire.version>3.0.0-M5</surefire.version>
         <failsafe.version>3.0.0-M5</failsafe.version>
         <lombok.version>1.18.22</lombok.version>
         <guava.version>31.1-jre</guava.version>
+        <graalvm.version>21.1.0</graalvm.version>
         <commons.cli.version>1.5.0</commons.cli.version>
         <junit5.version>5.8.2</junit5.version>
         <mockito.version>4.6.1</mockito.version>
@@ -87,7 +88,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>${maven.jar.plugin.main.class}</mainClass>
+                            <mainClass>${jar.main.class}</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -105,6 +106,30 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${failsafe.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.graalvm.nativeimage</groupId>
+                <artifactId>native-image-maven-plugin</artifactId>
+                <version>${graalvm.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>native-image</goal>
+                        </goals>
+                        <phase>install</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <imageName>minesweeper</imageName>
+                    <mainClass>${jar.main.class}</mainClass>
+                    <buildArgs combine.children="append">
+                        <buildArgs>
+                            --verbose
+                            --no-fallback
+                            --initialize-at-build-time=org.slf4j
+                        </buildArgs>
+                    </buildArgs>
+                </configuration>
             </plugin>
         </plugins>
     </build>

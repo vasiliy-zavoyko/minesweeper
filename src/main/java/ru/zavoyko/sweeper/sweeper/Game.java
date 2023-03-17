@@ -2,8 +2,8 @@ package ru.zavoyko.sweeper.sweeper;
 
 class Game {
 
-    private Bomb bomb;
-    private Flag flag;
+    private final Bomb bomb;
+    private final Flag flag;
     private GameState state;
 
     Game(int cols, int rows, int bombs) {
@@ -30,7 +30,7 @@ class Game {
         if (isGameOver()) {
             return;
         }
-        flag.toggleFlagedToBox(coordinate);
+        flag.toggleFlaggedToBox(coordinate);
     }
 
     private void openBox(Coordinate coordinate) {
@@ -40,7 +40,7 @@ class Game {
             switch (bomb.get(coordinate)) {
                 case ZERO -> openBoxesAround(coordinate);
                 case BOMB -> openBombs(coordinate);
-                default -> flag.setOpendToBox(coordinate);
+                default -> flag.setOpenedToBox(coordinate);
             }
         }
     }
@@ -59,7 +59,7 @@ class Game {
         flag.setBombedToBox(coordinate);
         for (final var other : Ranges.getAllCoordinates()) {
             if (bomb.get(other) == Box.BOMB) {
-                flag.setOpendToBoxClosedBox(other);
+                flag.setOpenedToBoxClosedBox(other);
             } else {
                 flag.setNoBombToFlaggedBox(other);
             }
@@ -68,7 +68,7 @@ class Game {
     }
 
     private void openBoxesAround(Coordinate coordinate) {
-        flag.setOpendToBox(coordinate);
+        flag.setOpenedToBox(coordinate);
         for (final var around : Ranges.getCoordinateAround(coordinate)) {
             openBox(around);
         }

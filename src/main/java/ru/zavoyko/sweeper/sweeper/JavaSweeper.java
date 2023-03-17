@@ -10,20 +10,13 @@ import static com.google.common.io.Resources.getResource;
 public class JavaSweeper extends JFrame {
     private static final int IMAGE_SIZE = 50;
 
-    private int cols = 9;
-    private int rows = 9;
-    private int bombs = 3;
-
     private Game game;
 
     private JPanel panel;
     private JLabel label;
 
     public JavaSweeper(int colsToSet, int rowsToSet, int bombsToSet) {
-        this.cols = colsToSet;
-        this.rows = rowsToSet;
-        this.bombs = bombsToSet;
-        game = new Game(cols, rows, bombs);
+        game = new Game(colsToSet, rowsToSet, bombsToSet);
         game.start();
         setImages();
         initPanel();
@@ -55,7 +48,7 @@ public class JavaSweeper extends JFrame {
                 for (Coordinate coordinate : Ranges.getAllCoordinates()) {
                     final var image = (Image) game.getBox(coordinate).getImage();
                     graphics.drawImage(
-                            image, coordinate.getX() * IMAGE_SIZE, coordinate.getY() * IMAGE_SIZE, this
+                            image, coordinate.x() * IMAGE_SIZE, coordinate.y() * IMAGE_SIZE, this
                     );
                 }
             }
@@ -63,7 +56,6 @@ public class JavaSweeper extends JFrame {
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent event) {
-
                 int x = event.getX() / IMAGE_SIZE;
                 int y = event.getY() / IMAGE_SIZE;
                 final var coordinate = new Coordinate(x, y);
@@ -76,7 +68,7 @@ public class JavaSweeper extends JFrame {
                 panel.repaint();
             }
         });
-        panel.setPreferredSize(new Dimension(Ranges.getSize().getX() * IMAGE_SIZE, Ranges.getSize().getY() * IMAGE_SIZE));
+        panel.setPreferredSize(new Dimension(Ranges.getSize().x() * IMAGE_SIZE, Ranges.getSize().y() * IMAGE_SIZE));
         add(panel);
     }
 

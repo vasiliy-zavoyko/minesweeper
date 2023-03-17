@@ -16,14 +16,14 @@ class Flag {
         return flagMap.get(coordinate);
     }
 
-    void setOpendToBox(Coordinate coordinate) {
+    void setOpenedToBox(Coordinate coordinate) {
         flagMap.set(coordinate, Box.OPENED);
         totalClosed--;
     }
 
-    void toggleFlagedToBox(Coordinate coordinate) {
+    void toggleFlaggedToBox(Coordinate coordinate) {
         if (flagMap.get(coordinate) == Box.CLOSED) {
-            setFlagedToBox(coordinate);
+            setFlaggedToBox(coordinate);
         } else {
             setClosedToBox(coordinate);
         }
@@ -34,7 +34,7 @@ class Flag {
         totalFlags--;
     }
 
-    private void setFlagedToBox(Coordinate coordinate) {
+    private void setFlaggedToBox(Coordinate coordinate) {
         flagMap.set(coordinate, Box.FLAGGED);
         totalFlags++;
     }
@@ -50,7 +50,7 @@ class Flag {
     void setFlaggedToLastClosedBoxes() {
         for (final var coordinate : Ranges.getAllCoordinates()) {
             if (Box.CLOSED == flagMap.get(coordinate)) {
-                setFlagedToBox(coordinate);
+                setFlaggedToBox(coordinate);
             }
         }
     }
@@ -59,7 +59,7 @@ class Flag {
         flagMap.set(coordinate, Box.BOMBED);
     }
 
-    void setOpendToBoxClosedBox(Coordinate coordinate) {
+    void setOpenedToBoxClosedBox(Coordinate coordinate) {
         if (Box.CLOSED == flagMap.get(coordinate)) {
             flagMap.set(coordinate, Box.OPENED);
         }
